@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
+from .models import CustomUser
 
-class SignUpForm(UserCreationForm):
-    email = forms.EmailField(required=True)  # 이메일 필수 입력
+class SignupForm(UserCreationForm):
+    phone_number = forms.CharField(max_length=15, required=False)
+    address = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
-        model = get_user_model()  # 커스텀 유저 모델 대응
-        fields = ('username', 'email', 'password1', 'password2')  # 폼 필드 지정
+        model = CustomUser
+        fields = ['username', 'email', 'phone_number', 'address', 'password1', 'password2']
